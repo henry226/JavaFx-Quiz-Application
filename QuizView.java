@@ -16,15 +16,15 @@ public class QuizView {
 		subStage.setTitle("Quiz Game");
 
 		AnchorPane anchorPane = new AnchorPane();
-		anchorPane.setPrefWidth(650);
+		anchorPane.setPrefWidth(900);
 		anchorPane.setPrefHeight(343);
 
 		Pane pane = new Pane();
-		pane.setPrefWidth(650);
+		pane.setPrefWidth(900);
 		pane.setPrefHeight(372);
 		pane.setStyle("-fx-background-color:#fff;");
 
-		Text questionNo = new Text("Question 1:");
+		Text questionNo = new Text("Q1:");
 		questionNo.setLayoutX(31);
 		questionNo.setLayoutY(56);
 		questionNo.setStyle("-fx-font-size:20;");
@@ -72,34 +72,31 @@ public class QuizView {
 		scene.getStylesheets().add(getClass().getResource("/CSS/main.css").toExternalForm());
 		anchorPane.getChildren().add(pane);
 
-		/*JavaQuizController quiz = new JavaQuizController();
-		quiz.setJavaQuizController(b1, b2, b3, b4, qNo, questions, save_cont, finish);
-		save_cont.setOnAction(e -> {
+		QuizController quizController = new QuizController();
+		quizController.setQuizController(optionA, optionB, optionC, optionD, questionNo, questions, nextQuestion, finishQuiz);
+		
+		nextQuestion.setOnAction(e -> {
 			try {
-
-				quiz.btnNext();
-
+				quizController.NextButton();
 			} catch (IOException e1) {
-
 				e1.printStackTrace();
 			}
 		});
 
-		finish.setOnAction(e -> {
+		finishQuiz.setOnAction(e -> {
 			try {
-				quiz.setDialogBox();
-				subStage.hide();
+				quizController.setDialogBox();
+				//subStage.hide();
 			} catch (IOException e1) {
-
 				e1.printStackTrace();
 			}
-		});*/
+		});
 
 		subStage.setScene(scene);
 		subStage.show();
 	}
 
-	/*public static void setStage_hide() {
+	public static void setStage_hide() {
 		QuizView.subStage.hide();
-	}*/
+	}
 }
