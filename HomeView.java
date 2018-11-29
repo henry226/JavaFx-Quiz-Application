@@ -43,7 +43,6 @@ public class HomeView {
 			System.out.println("button clicked");
 			new QuizView();
 			stage.hide();
-			//random_no = RandomNumbers.randomFunction();
 		});
 		
 		// add functions to the pane

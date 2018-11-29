@@ -25,12 +25,12 @@ public class QuizView {
 		pane.setStyle("-fx-background-color:#fff;");
 
 		Text questionNo = new Text("Q1:");
-		questionNo.setLayoutX(31);
+		questionNo.setLayoutX(50);
 		questionNo.setLayoutY(56);
 		questionNo.setStyle("-fx-font-size:20;");
 
 		Text questions = new Text("questions");
-		questions.setLayoutX(138);
+		questions.setLayoutX(85);
 		questions.setLayoutY(56);
 		questions.setStyle("-fx-font-size:19;");
 
@@ -61,7 +61,7 @@ public class QuizView {
 		nextQuestion.setPrefHeight(35);
 
 		Button finishQuiz = new Button("Finish Quiz");
-		finishQuiz.setLayoutX(450);
+		finishQuiz.setLayoutX(700);
 		finishQuiz.setLayoutY(299);
 		finishQuiz.setPrefWidth(155);
 		finishQuiz.setPrefHeight(35);
@@ -86,7 +86,6 @@ public class QuizView {
 		finishQuiz.setOnAction(e -> {
 			try {
 				quizController.setDialogBox();
-				//subStage.hide();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

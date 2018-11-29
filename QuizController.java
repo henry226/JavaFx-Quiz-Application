@@ -31,7 +31,7 @@ public class QuizController {
     public static String checked;
     
     // Final report 
-    //FinalReport submit = new Final_Report();
+    FinalReport submit = new FinalReport();
     public void setQuizController(RadioButton optionA, RadioButton optionB, RadioButton optionC, RadioButton optionD, Text questionNo,
     		Text questions, Button save_next, Button finish){ 
     	// initial quiz ID to 0
@@ -140,16 +140,18 @@ public class QuizController {
 	
 	public void setDialogBox() throws IOException{
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation");
+		alert.setTitle("Quit Quiz");
 		String message = " Submit and quit the quiz ?";
 		alert.setContentText(message);
 
 		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
-		if ((action.isPresent()) && (action.get() ==javafx.scene.control.ButtonType.OK)) {
+		if ((action.isPresent()) && (action.get() == javafx.scene.control.ButtonType.OK)) {
 			this.submit();   
+			//System.out.println("if here");
 		}
 		else{
-			quizID--;
+			System.out.println("else here");
+			//quizID--;
 		}
 	}
 	
@@ -170,7 +172,7 @@ public class QuizController {
 	}
 	
 	// calculate the scores
-    public static int calCorrectAnswer(){
+    public static int countCorrectAnswers(){
     	int numberOfQuizs = 5;
         int count=0;
         
@@ -184,7 +186,7 @@ public class QuizController {
 	//sumbmit quiz 
 	public void submit()
 	{
-	  //submit.set_Final_Report();	
+	  submit.setFinalReport();	
 	  QuizView.setStage_hide();
 	}
 	
