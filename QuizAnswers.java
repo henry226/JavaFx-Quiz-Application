@@ -1,4 +1,4 @@
-
+package CS662_FinalProject;
 public class QuizAnswers {
 	static String[][] answer1 = new String[5][2];
     static String[][] answer2 = new String[5][2];

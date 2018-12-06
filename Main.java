@@ -1,3 +1,4 @@
+package CS662_FinalProject;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -1,3 +1,4 @@
+package CS662_FinalProject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
@@ -31,7 +32,17 @@ public class QuizController {
     public static String checked;
     
     // Final report 
+    
     FinalReport submit = new FinalReport();
+    // you could use a Builder pattern here to make this parameter list much shorter
+    // this would be needed be used basically as a constructor
+    // QuizController controller = new QuizController.QuizControllerBuilder()
+    //    .setOptionA(optionA)
+    //    .setOptionB(optionB)
+    //    .setOptionC(optionC)
+    //    .setQuestionNo(questionNo)
+    //    ....
+    //    .createController()
     public void setQuizController(RadioButton optionA, RadioButton optionB, RadioButton optionC, RadioButton optionD, Text questionNo,
     		Text questions, Button save_next, Button finish){ 
     	// initial quiz ID to 0

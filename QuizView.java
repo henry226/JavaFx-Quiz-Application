@@ -1,3 +1,4 @@
+package CS662_FinalProject;
 import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,58 +24,39 @@ public class QuizView {
 		pane.setPrefWidth(900);
 		pane.setPrefHeight(372);
 		pane.setStyle("-fx-background-color:#fff;");
-
+		
+		// Create question number text
 		Text questionNo = new Text("Q1:");
 		questionNo.setLayoutX(50);
 		questionNo.setLayoutY(56);
 		questionNo.setStyle("-fx-font-size:20;");
-
+		
+		// Create questions text
 		Text questions = new Text("questions");
 		questions.setLayoutX(85);
 		questions.setLayoutY(56);
 		questions.setStyle("-fx-font-size:19;");
 
-		RadioButton optionA = new RadioButton("A )");
-		optionA.setLayoutX(50);
-		optionA.setLayoutY(112);
-		optionA.setStyle("-fx-font-size:16;");
+		// Create A, B, C, D multiple choice
+		RadioButton optionA = multipleChoice("A )", 50, 112);
+		RadioButton optionB = multipleChoice("B )", 50, 151);
+		RadioButton optionC = multipleChoice("C )", 50, 191);
+		RadioButton optionD = multipleChoice("D )", 50, 231);
 
-		RadioButton optionB = new RadioButton("B )");
-		optionB.setLayoutX(50);
-		optionB.setLayoutY(151);
-		optionB.setStyle("-fx-font-size:16;");
-
-		RadioButton optionC = new RadioButton("C )");
-		optionC.setLayoutX(50);
-		optionC.setLayoutY(191);
-		optionC.setStyle("-fx-font-size:16;");
-
-		RadioButton optionD = new RadioButton("D )");
-		optionD.setLayoutX(50);
-		optionD.setLayoutY(231);
-		optionD.setStyle("-fx-font-size:16;");
-
-		Button nextQuestion = new Button("Save & Continue");
-		nextQuestion.setLayoutX(50);
-		nextQuestion.setLayoutY(299);
-		nextQuestion.setPrefWidth(155);
-		nextQuestion.setPrefHeight(35);
-
-		Button finishQuiz = new Button("Finish Quiz");
-		finishQuiz.setLayoutX(700);
-		finishQuiz.setLayoutY(299);
-		finishQuiz.setPrefWidth(155);
-		finishQuiz.setPrefHeight(35);
-
+		// create buttons
+		Button nextQuestion = buttons("Save & Continue", 50, 299, 155, 35);
+		Button finishQuiz = buttons("Finish Quiz", 700, 299, 155, 35);
+		
+		// add pane and scene
 		pane.getChildren().addAll(questionNo, questions, optionA, optionB, optionC, optionD, nextQuestion, finishQuiz);
-
 		Scene scene = new Scene(anchorPane);
-		scene.getStylesheets().add(getClass().getResource("/CSS/main.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 		anchorPane.getChildren().add(pane);
 
 		QuizController quizController = new QuizController();
 		quizController.setQuizController(optionA, optionB, optionC, optionD, questionNo, questions, nextQuestion, finishQuiz);
 		
+		// nextQuestion button action
 		nextQuestion.setOnAction(e -> {
 			try {
 				quizController.NextButton();
@@ -82,7 +64,8 @@ public class QuizView {
 				e1.printStackTrace();
 			}
 		});
-
+		
+		// finishQuiz button action
 		finishQuiz.setOnAction(e -> {
 			try {
 				quizController.setDialogBox();
@@ -93,6 +76,27 @@ public class QuizView {
 
 		subStage.setScene(scene);
 		subStage.show();
+	}
+	
+	// Create multiple choice option
+	public static RadioButton multipleChoice(String title, int xLocation, int yLocation) {
+		RadioButton option = new RadioButton(title);
+		option.setLayoutX(xLocation);
+		option.setLayoutY(yLocation);
+		option.setStyle("-fx-font-size:16;");
+		
+		return option;
+	}
+	
+	// Create save_next and finish buttons
+	public static Button buttons(String title, int xLocation, int yLocation, int width, int height) {
+		Button button = new Button(title);
+		button.setLayoutX(xLocation);
+		button.setLayoutY(yLocation);
+		button.setPrefWidth(width);
+		button.setPrefHeight(height);
+		
+		return button;
 	}
 
 	public static void setStage_hide() {

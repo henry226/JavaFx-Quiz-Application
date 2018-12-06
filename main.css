@@ -11,7 +11,7 @@
 
 #anPane
 {
-	-fx-background-image: url("../image/white.jpg");
+	-fx-background-image: url("white.jpg");
 	-fx-background-size: cover;
 }
 
