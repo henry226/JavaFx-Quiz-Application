@@ -1,26 +1,36 @@
 package CS662_FinalProject;
+
+import java.util.HashMap;
+
 public class QuizAnswers {
 	static String[][] answer1 = new String[5][2];
     static String[][] answer2 = new String[5][2];
+    static HashMap<Integer, String> answerOne = new HashMap<Integer, String>();
+    static HashMap<Integer, String> answerTwo = new HashMap<Integer, String>();
 
-    public static String[][] getAnswer1() {
-    	answer1[0][0]="Perhaps only a minority of scientific researchers were succumbing to bias, but their skewed findings\n were having __________ effect on published research.";
-    	answer1[0][1]="a disproportional";
-
-    	answer1[1][0]="The era`s examples of __________ that are cited by the author can be balanced by occasions when\n dissent was tolerated.";
-    	answer1[1][1]="censorship";
-
-    	answer1[2][0]="Paleontologists seeking dinosaur fossils made many __________ finds in the years just before the\n Second World War; even excavations that produced no bones at all sometimes proved to be\n revealing.";
-    	answer1[2][1]="instructive";
-
-    	answer1[3][0]="Because people expect theater directors to be authoritarians, many were surprised that Clark\n was so _____.";
-    	answer1[3][1]="egalitarian";
-
-    	answer1[4][0]="The ability of the Grand Banks cod fishery to sustain intensive cod harvesting for many years\\n gave it a reputation for __________ that deceived even scientifically sophisticated observers";
-    	answer1[4][1]="inexhaustibility";
+    
+    
+    public static HashMap<Integer, String> getAnswerOne(){
+    	answerOne.put(1, "a disproportional");
+    	answerOne.put(2, "censorship");
+    	answerOne.put(3, "instructive");
+    	answerOne.put(4, "egalitarian");
+    	answerOne.put(5, "inexhaustibility");
     	
-    	return answer1;
-	}
+		return answerOne;
+    }
+    
+    
+    public static HashMap<Integer, String> getAnswerTwo(){
+    	answerTwo.put(1, "Quantity B is greater.");
+    	answerTwo.put(2, "The relationship cannot be determined from the information given.");
+    	answerTwo.put(3, "The relationship cannot be determined from the information given.");
+    	answerTwo.put(4, "45");
+    	answerTwo.put(5, "2 only");
+    	
+		return answerTwo;
+    }
+    
     
     public static String[][] getAnswer2() {
     	answer2[0][0]="Quantity A: 80 percent of the price of the item after the increase\nQuantity B: x";
@@ -39,5 +49,24 @@ public class QuizAnswers {
     	answer2[4][1]="2 only";
     	
     	return answer2;
+	}
+    
+    public static String[][] getAnswer1() {
+    	answer1[0][0]="Perhaps only a minority of scientific researchers were succumbing to bias, but their skewed findings\n were having __________ effect on published research.";
+    	answer1[0][1]="a disproportional";
+
+    	answer1[1][0]="The era`s examples of __________ that are cited by the author can be balanced by occasions when\n dissent was tolerated.";
+    	answer1[1][1]="censorship";
+
+    	answer1[2][0]="Paleontologists seeking dinosaur fossils made many __________ finds in the years just before the\n Second World War; even excavations that produced no bones at all sometimes proved to be\n revealing.";
+    	answer1[2][1]="instructive";
+
+    	answer1[3][0]="Because people expect theater directors to be authoritarians, many were surprised that Clark\n was so _____.";
+    	answer1[3][1]="egalitarian";
+
+    	answer1[4][0]="The ability of the Grand Banks cod fishery to sustain intensive cod harvesting for many years\\n gave it a reputation for __________ that deceived even scientifically sophisticated observers";
+    	answer1[4][1]="inexhaustibility";
+    	
+    	return answer1;
 	}
 }

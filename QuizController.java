@@ -22,13 +22,16 @@ public class QuizController {
     private Button finish;
     private Text questionNo;
     private Text questions;
-    private Text scores;
+
 	
-    static String s;
+    //static String s;
     String[][] quizQuestions;
     static String[][] quizAnswers;
+    static HashMap<Integer, String> quizAns;
     public static int quizID;
-    static HashMap<Integer, String> map;
+    public static int quizCounter = 0;
+    static HashMap<Integer, String> wrongAns;
+    static HashMap<Integer, String> userChoice;
     public static String checked;
     
     // Final report 
@@ -43,11 +46,12 @@ public class QuizController {
     //    .setQuestionNo(questionNo)
     //    ....
     //    .createController()
-    public void setQuizController(RadioButton optionA, RadioButton optionB, RadioButton optionC, RadioButton optionD, Text questionNo,
-    		Text questions, Button save_next, Button finish){ 
+    
+    public void setQuizController(int quizType, RadioButton optionA, RadioButton optionB, RadioButton optionC, RadioButton optionD, Text questionNo,
+    		Text questions, Button save_next, Button finish) {
+    //public QuizController(RadioButton optionA, RadioButton optionB, RadioButton optionC, RadioButton optionD, Text questionNo, Text questions) {
     	// initial quiz ID to 0
     	quizID=0;
-    	
     	this.optionA = optionA;
     	this.optionB = optionB;
     	this.optionC = optionC;
@@ -56,7 +60,7 @@ public class QuizController {
     	this.finish = finish;
     	this.questionNo = questionNo;
     	this.questions = questions;
-    	
+
     	
     	toggleGroup = new ToggleGroup();
     	optionA.setToggleGroup(toggleGroup);
@@ -67,25 +71,26 @@ public class QuizController {
 		
     	quizQuestions = new String[10][5];
     	quizAnswers = new String[10][2];
-    	
-    	// Get an random integer between 1 to 2
-    	Random randGen = new Random();
-        int randNum = randGen.nextInt(2);
+    	quizAns = new HashMap<Integer, String>();
          
-         if(randNum == 0){
+         if(quizType == 1){
         	 quizQuestions = QuizQuestions.setQuiz1();
-        	 quizAnswers = QuizAnswers.getAnswer1();
+        	 //quizAnswers = QuizAnswers.getAnswer1();
+        	 quizAns = QuizAnswers.getAnswerOne();
                    
         }
         else{
         	quizQuestions = QuizQuestions.setQuiz2();
-        	quizAnswers = QuizAnswers.getAnswer2();
+        	//quizAnswers = QuizAnswers.getAnswer2();
+        	quizAns = QuizAnswers.getAnswerTwo();
         }
       
-         map=new HashMap<Integer, String>();
+         //map=new HashMap<Integer, String>();
+         userChoice = new HashMap<Integer, String>();
          readQuestions(quizID);  
     }
     
+	// Read the questions from QuizQestions classes.
     public void readQuestions(int i){
 		        		       
     	questions.setText(quizQuestions[i][0]);
@@ -93,44 +98,49 @@ public class QuizController {
     	optionB.setText("B)  " + quizQuestions[i][2]);
     	optionC.setText("C)  " + quizQuestions[i][3]);
     	optionD.setText("D)  " + quizQuestions[i][4]);
-        
+    	
     	// Remove Strings A, B, C, D 
-    	optionA.getText().substring(4);  
+    	/*optionA.getText().substring(4);  
     	optionB.getText().substring(4);
     	optionC.getText().substring(4); 
     	optionD.getText().substring(4);
-    	
-    	// Reset radiobuttons
+    	*/
+    	// Reset radio buttons
     	optionA.setSelected(false);
     	optionB.setSelected(false);
     	optionC.setSelected(false);
     	optionD.setSelected(false);   	
     }
     
+    // set the quiz ID
     public void setQuizID(int id){
     	quizID = id;
     }
    
+    // get the quiz ID
     public int getQuizID(){
 		 return quizID;
 	}
-		
-	public String getSelected()
-	{
+	
+    // get selected value
+	public String getSelected(){
 		return checked;
 	}
 	
-	public void setQuestionNo(int no){	
-		int num = no;
+	// The question number Q1 ... Q5
+	public void setQuestionNo(int n){	
+		int num = n;
 		num++;
 		questionNo.setText("Q" + num + ": ");	 
 	}
 	
+	// User clicked the next button
 	public void NextButton() throws IOException{
 		groupAction();
-	  
+		quizCounter++;
+		System.out.println(quizCounter);
 		if(quizID < 4){
-			map.put(quizID,getSelected());
+			userChoice.put(quizID+1,getSelected());
       
 			if(Objects.equals(quizID, 4)){   
 	           setQuestionNo(quizID); 
@@ -143,12 +153,14 @@ public class QuizController {
 	    	   setQuestionNo(quizID); 
 	           readQuestions(quizID);
 	       }
-       } // end if
-	  else {
+       }
+		// if quiz ID > 4, currently 5
+		else {
 		     this.submit();    	  
 	  }
 	}
 	
+	// If user enters finish button
 	public void setDialogBox() throws IOException{
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Quit Quiz");
@@ -158,12 +170,11 @@ public class QuizController {
 		Optional<javafx.scene.control.ButtonType> action = alert.showAndWait();
 		if ((action.isPresent()) && (action.get() == javafx.scene.control.ButtonType.OK)) {
 			this.submit();   
-			//System.out.println("if here");
 		}
-		else{
+		/*else{
 			System.out.println("else here");
-			//quizID--;
-		}
+			quizID--;
+		}*/
 	}
 	
 	//The radio button actions
@@ -184,19 +195,23 @@ public class QuizController {
 	
 	// calculate the scores
     public static int countCorrectAnswers(){
-    	int numberOfQuizs = 5;
-        int count=0;
+    	//int numberOfQuizs = 5;
+    	int numberOfQuizs = quizID+1;
+        //int count = 0;
         
-        for(int i=0;i<numberOfQuizs;i++)
-        	if(quizAnswers[i][1].equals(map.get(i))){
-        	 count++;
-        	 count++;
+        for(int i=1;i<numberOfQuizs;i++)
+        	//if(quizAnswers[i][1].equals(map.get(i))){
+        	if((quizAns.get(i)).equals(userChoice.get(i))){
+        		//count++;
+        		quizAns.remove(i);
+        		//System.out.println(quizAns.size());
         }
-         return count;
+         //return count;
+        return 5 - quizAns.size();
     }
-	//sumbmit quiz 
-	public void submit()
-	{
+    
+	//submit quiz 
+	public void submit(){
 	  submit.setFinalReport();	
 	  QuizView.setStage_hide();
 	}

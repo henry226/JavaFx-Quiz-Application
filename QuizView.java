@@ -1,5 +1,8 @@
 package CS662_FinalProject;
+import java.awt.Color;
 import java.io.IOException;
+import java.util.Random;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -11,6 +14,7 @@ import javafx.stage.Stage;
 public class QuizView {
 	
 	static Stage subStage;
+	public static int quizType;
 	
 	QuizView() {
 		subStage = new Stage();
@@ -29,13 +33,13 @@ public class QuizView {
 		Text questionNo = new Text("Q1:");
 		questionNo.setLayoutX(50);
 		questionNo.setLayoutY(56);
-		questionNo.setStyle("-fx-font-size:20;");
+		questionNo.setStyle("-fx-font-size:18;");
 		
 		// Create questions text
 		Text questions = new Text("questions");
 		questions.setLayoutX(85);
 		questions.setLayoutY(56);
-		questions.setStyle("-fx-font-size:19;");
+		questions.setStyle("-fx-font-size:18;");
 
 		// Create A, B, C, D multiple choice
 		RadioButton optionA = multipleChoice("A )", 50, 112);
@@ -53,8 +57,14 @@ public class QuizView {
 		scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 		anchorPane.getChildren().add(pane);
 
+		//QuizController quizController = new QuizController(optionA, optionB, optionC, optionD, questionNo, questions, nextQuestion, finishQuiz);
 		QuizController quizController = new QuizController();
-		quizController.setQuizController(optionA, optionB, optionC, optionD, questionNo, questions, nextQuestion, finishQuiz);
+		//QuizController quizController = new QuizController(optionA, optionB, optionC, optionD, questionNo, questions);
+		// Get an random integer between 1 to 2
+    	Random randGen = new Random();
+        quizType = randGen.nextInt(2);
+        
+		quizController.setQuizController(quizType, optionA, optionB, optionC, optionD, questionNo, questions, nextQuestion, finishQuiz);
 		
 		// nextQuestion button action
 		nextQuestion.setOnAction(e -> {
@@ -98,7 +108,8 @@ public class QuizView {
 		
 		return button;
 	}
-
+	
+	// hide the Stage
 	public static void setStage_hide() {
 		QuizView.subStage.hide();
 	}

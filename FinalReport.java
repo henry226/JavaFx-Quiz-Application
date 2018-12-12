@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 public class FinalReport {
 	static Stage subStage;
-
+	//private Image img;
+	
 	public void setFinalReport() {
 		
 		// set stage and title
@@ -26,29 +27,26 @@ public class FinalReport {
 		Label congratz = labels("Congratulations", 224, 27, "-fx-text-fill:#eb3b3b; -fx-font-size:20; -fx-font-weight:bold;");
 		Label successLabel = labels("You have successfully completed Quiz game", 140, 302, "-fx-font-size:18;");
 		Label scoreLabel = labels("Your Score is", 230, 260, "-fx-font-size:20; -fx-font-weight:bold;");
-		Label score = labels("/5", 360, 260, "-fx-font-size:20; -fx-font-weight:bold;");
+		Label score = labels("5", 360, 260, "-fx-font-size:20; -fx-font-weight:bold;");
 		
 		// back to home button
-		Button backHome = new Button(" Go To Home ");
-		backHome.setLayoutX(228);
-		backHome.setLayoutY(356);
-		backHome.setPrefWidth(170);
-		backHome.setPrefHeight(40);
+		Button backHome = finalButtons(" Go To Home ", 400, 356, 170, 40);
+		// view Answer button
+		Button viewAns = finalButtons(" Some Tips ", 70, 356, 170, 40);
 		
-		// set image
-		ImageView imgView = new ImageView();
-		Image img = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLFX7WzNZR5JLDkENqEZZic_5-SYbQRlYWZXRgloV7RdRPTppm");
-        imgView.setFitWidth(300);
-        imgView.setFitHeight(180);
-        imgView.setImage(img);
-        imgView.setLayoutX(150);
-        imgView.setLayoutY(57);
-	
 		int no = 0;
-
 		no = QuizController.countCorrectAnswers();
 		score.setText(no + "/5");
-
+		
+		// set image depends on grade
+		ImageView imgView = new ImageView();
+		if(no > 2) {
+			img(imgView, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLFX7WzNZR5JLDkENqEZZic_5-SYbQRlYWZXRgloV7RdRPTppm", 300, 180, 150, 57);
+		}
+		else {
+			img(imgView, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGggfJR65rZq8LMsbONrK95m2IDZHdk_Y1zVa2cgPU4B4P9N6U", 250, 180, 180, 65);
+		}
+	
 		// when backHome button is clicked, hind final report class and go back to homeView
 		backHome.setOnAction(e -> {
 			FinalReport.subStage.hide();
@@ -56,9 +54,15 @@ public class FinalReport {
 			homeView.setHomeView();
 		});
 		
+		viewAns.setOnAction(e -> {
+			FinalReport.subStage.hide();
+			Tips tip = new Tips();
+			tip.setRaningsView();
+		});
+		
 		// set scene 
 		Scene scene = new Scene(anchorPane);
-		anchorPane.getChildren().addAll(congratz, successLabel, backHome, scoreLabel, score, imgView);
+		anchorPane.getChildren().addAll(congratz, successLabel, backHome, viewAns, scoreLabel, score, imgView);
 		scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 		subStage.setScene(scene);
 		subStage.show();
@@ -73,5 +77,26 @@ public class FinalReport {
 		labels.setStyle(style);
 		
 		return labels;
+	}
+	
+	// set up image
+	public static void img(ImageView imgView,String url, int width, int height, int xLocation, int yLocation) {
+		Image img = new Image(url);
+		imgView.setFitWidth(width);
+        imgView.setFitHeight(height);
+        imgView.setLayoutX(xLocation);
+        imgView.setLayoutY(yLocation);
+        imgView.setImage(img);
+	}
+	
+	// set up buttons 
+	public static Button finalButtons(String title, int xLocation, int yLocation, int width, int height){
+		Button button = new Button(title);
+		button.setLayoutX(xLocation);
+		button.setLayoutY(yLocation);
+		button.setPrefWidth(width);
+		button.setPrefHeight(height);
+		
+		return button;
 	}
 }
